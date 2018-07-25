@@ -1,0 +1,180 @@
+<template name="addEmployee">
+    <div id="page-wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">Add Employee</h1>
+                </div>
+            </div>
+            <div class="row">
+                <form class="form-horizontal" id="addEmployeeForm">
+                    <div class="form-group">
+                        <label for="emp_username" class="col-sm-2 control-label">Username</label>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" id="emp_username" placeholder="Username">
+                        </div>
+                        <span id="username_error" style="color: red;"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="emp_password" class="col-sm-2 control-label">Password</label>
+                        <div class="col-sm-3">
+                            <input type="password" class="form-control" id="emp_password" placeholder="Password">
+                        </div>
+                        <span id="password_error" style="color: red;"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="fname" class="col-sm-2 control-label">First Name</label>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" id="fname" placeholder="First Name">
+                        </div>
+                        <span id="first_name_error" style="color: red;"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="lname" class="col-sm-2 control-label">Last Name</label>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" id="lname" placeholder="Last name">
+                        </div>
+                        <span id="last_name_error" style="color: red;"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="role" class="col-sm-2 control-label">Role</label>
+                        <div class="col-sm-3">
+                          <select id="role">
+                              <option value="employee">Employee</option>
+                              <option value="admin">Admin</option>
+                          </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email" class="col-sm-2 control-label">Email</label>
+                        <div class="col-sm-3">
+                            <input type="email" class="form-control" id="email" placeholder="Email">
+                        </div>
+                        <span id="email_error" style="color: red;"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone" class="col-sm-2 control-label">Phone</label>
+                        <div class="col-sm-3">
+                            <input type="text"  id="phone" class="form-control">
+                        </div>
+                        <span id="phone_error" style="color: red;"></span>
+                    </div>
+                    <div class="col-md-4"></div>
+                    <div class="col-md-4"><button type="button" class="btn btn-success add_employee">Add Employee</button></div>
+                </form>
+            </div>
+        </div>
+    </div>
+</template>
+
+
+<template name="editEmployee">
+    <div id="page-wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">Edit</h1>
+                </div>
+            </div>
+            <div class="row">
+                <form class="form-horizontal" id="editEmployeeForm">
+                    <div class="form-group">
+                        <label for="fname" class="col-sm-2 control-label">First Name</label>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" id="fname" value="{{employee.firstName}}">
+                        </div>
+                        <span id="first_name_error" style="color: red;"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="lname" class="col-sm-2 control-label">Last Name</label>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" id="lname" value="{{employee.lastName}}">
+                        </div>
+                        <span id="last_name_error" style="color: red;"></span>
+
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email" class="col-sm-2 control-label">Email</label>
+                        <div class="col-sm-3">
+                            <input type="email" class="form-control" id="email" value="{{employee.email}}">
+                        </div>
+                        <span id="email_error" style="color: red;"></span>
+
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone" class="col-sm-2 control-label">Phone</label>
+                        <div class="col-sm-3">
+                            <input type="text"  id="phone" class="form-control" value="{{employee.phone}}">
+                        </div>
+                        <span id="phone_error" style="color: red;"></span>
+                    </div>
+                    <div class="col-md-4"></div>
+                    <div class="col-md-4"><button type="button" class="btn btn-success edit_employee">Update</button></div>
+                </form>
+            </div>
+        </div>
+    </div>
+</template>
+
+
+
+
+<template name="viewEmployees">
+    <div id="page-wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">List of Employees</h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                            <tr>
+                                <th>First name</th>
+                                <th>Last name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Edit</th>
+                                <th>Delete</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {{#each employees}}
+                                <tr>
+                                    {{#if disabled user_id}}
+                                    <th class="disabled_text">{{firstName}}</th>
+                                    <th class="disabled_text">{{lastName}}</th>
+                                    <th class="disabled_text">{{email}}</th>
+                                    <th class="disabled_text">{{phone}}</th>
+                                        <th><a href="{{pathFor '/employee/:id' id=_id}}">Edit</a></th>
+                                        <th><button type="button" class="btn btn-danger enable">Enable</button></th>
+                                    {{else}}
+                                        <th>{{firstName}}</th>
+                                        <th>{{lastName}}</th>
+                                        <th>{{email}}</th>
+                                        <th>{{phone}}</th>
+                                        <th><a href="{{pathFor '/employee/:id' id=_id}}">Edit</a> </th>
+                                        <th><button type="button" class="btn btn-danger disable">Disable</button></th>
+                                    {{/if}}
+                                </tr>
+                            {{/each}}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

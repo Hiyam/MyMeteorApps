@@ -1,0 +1,177 @@
+<template name="addCompany">
+    <div id="page-wrapper">
+        <div class="container-fluid">
+            <div id="page-wrapper">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <h1 class="page-header">Add Company</h1>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <form class="form-horizontal" id="addCompanyForm">
+                            <div class="form-group">
+                                <label for="name" class="col-sm-2 control-label">Name</label>
+                                <div class="col-sm-3">
+                                    <input type="text" class="form-control" id="name" placeholder="Company's name">
+                                </div>
+                                <span id = "name_error" style="color: red;"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="address" class="col-sm-2 control-label">Address</label>
+                                <div class="col-sm-3">
+                                    <input type="text" class="form-control" id="address" placeholder="Company's address">
+                                </div>
+                                <span id = "address_error" style="color: red;"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="email" class="col-sm-2 control-label">Email</label>
+                                <div class="col-sm-3">
+                                    <input type="email" class="form-control" id="email" placeholder="Company's email address">
+                                </div>
+                                <span id = "email_error" style="color: red;"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="website" class="col-sm-2 control-label">Website</label>
+                                <div class="col-sm-3">
+                                    <input type="test" class="form-control" id="website" placeholder="Company's website">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="business" class="col-sm-2 control-label">Business Type</label>
+                                <div class="col-sm-3">
+                                    <select id="businesstype">
+                                        <option value="service">Service Business</option>
+                                        <option value="merchandising">Merchandising Business</option>
+                                        <option value="service">Manufacturing Business</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4"></div>
+                            <div class="col-md-4"><button type="button" class="btn btn-success add_company">Add Company</button></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+
+<template name="editCompany">
+    <div id="page-wrapper">
+        <div class="container-fluid">
+            <div id="page-wrapper">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <h1 class="page-header">Edit Company</h1>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <form class="form-horizontal" id="editCompanyForm">
+                            <div class="form-group">
+                                <label for="name" class="col-sm-2 control-label">Name</label>
+                                <div class="col-sm-3">
+                                    <input type="text" class="form-control" id="name" value="{{company.name}}">
+                                </div>
+                                <span id = "name_error" style="color: red;"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="address" class="col-sm-2 control-label">Address</label>
+                                <div class="col-sm-3">
+                                    <input type="text" class="form-control" id="address" value="{{company.address}}">
+                                </div>
+                                <span id = "address_error" style="color: red;"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="email" class="col-sm-2 control-label">Email</label>
+                                <div class="col-sm-3">
+                                    <input type="email" class="form-control" id="email" value="{{company.email}}">
+                                </div>
+                                <span id = "email_error" style="color: red;"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="website" class="col-sm-2 control-label">Website</label>
+                                <div class="col-sm-3">
+                                    <input type="text" class="form-control" id="website" value="{{company.website}}">
+                                </div>
+                            </div>
+                            {{getCompanyId company._id}}
+                            <div class="form-group">
+                                <label for="business" class="col-sm-2 control-label">Business Type</label>
+                                <div class="col-sm-3">
+                                    <select id = "businesstype">
+                                        {{#each businesstypes}}
+                                            {{#if companyIsInBusinessType this}}
+                                                <option value = "{{this}}" selected>{{this}}</option>
+                                            {{else}}
+                                                <option value = "{{this}}">{{this}}</option>
+                                            {{/if}}
+                                        {{/each}}
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4"></div>
+                            <div class="col-md-4"><button type="button" class="btn btn-success edit_company">Edit Company</button></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+
+<template name="viewCompanies">
+    <div id="page-wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">List of Companies</h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Address</th>
+                                <th>Email</th>
+                                <th>Website</th>
+                                <th>Business type</th>
+                                <th>Edit</th>
+                                <th>Delete</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {{#each companies}}
+                                <tr>
+                                    <th>{{name}}</th>
+                                    <th>{{address}}</th>
+                                    <th>{{email}}</th>
+                                    <th>{{website}}</th>
+                                    <th>{{businessType}}</th>
+                                    <th><a href="{{pathFor '/company/:id' id=_id}}">Edit</a> </th>
+                                    <th><button type="button" class="btn btn-danger delete">Delete</button></th>
+                                </tr>
+                            {{/each}}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

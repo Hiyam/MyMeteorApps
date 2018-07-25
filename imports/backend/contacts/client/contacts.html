@@ -1,0 +1,171 @@
+<template name="addContact">
+    <div id="page-wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">Add Contact</h1>
+                </div>
+            </div>
+            <div class="row">
+                <form class="form-horizontal" id="addContactForm">
+                    <div class="form-group">
+                        <label for="fname" class="col-sm-2 control-label">First name</label>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" id="fname" placeholder="First name">
+                        </div>
+                        <span id="first_name_error" style="color: red;"></span>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="lname" class="col-sm-2 control-label">Last Name</label>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" id="lname" placeholder="Last name">
+                        </div>
+                        <span id="last_name_error" style="color: red;"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email" class="col-sm-2 control-label">Email</label>
+                        <div class="col-sm-3">
+                            <input type="email" class="form-control" id="email" placeholder="Email">
+                        </div>
+                        <span id="email_error" style="color: red;"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="company" class="col-sm-2 control-label">Company</label>
+                        <div class="col-sm-3">
+                            <select id="company">
+                                {{#each companies}}
+                                    <option value="{{_id}}">{{name}}</option>
+                                {{/each}}
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone" class="col-sm-2 control-label">Phone</label>
+                        <div class="col-sm-3">
+                            <input type="text" id="phone" class="form-control">
+                        </div>
+                        <span id="phone_error" style="color: red;"></span>
+                    </div>
+                    <div class="col-md-4"></div>
+                    <div class="col-md-4"><button type="button" class="btn btn-success add_contact">Add Contact</button></div>
+                </form>
+            </div>
+        </div>
+    </div>
+</template>
+
+<template name="editContact">
+    <div id="page-wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">Edit Contact</h1>
+                </div>
+            </div>
+            <div class="row">
+                <form class="form-horizontal" id="editContactForm">
+                    <div class="form-group">
+                        <label for="fname" class="col-sm-2 control-label">First name</label>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" id="fname" value = {{contact.firstName}}>
+                        </div>
+                        <span id="first_name_error" style="color: red;"></span>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="lname" class="col-sm-2 control-label">Last Name</label>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" id="lname" value = {{contact.lastName}}>
+                        </div>
+                        <span id="last_name_error" style="color: red;"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email" class="col-sm-2 control-label">Email</label>
+                        <div class="col-sm-3">
+                            <input type="email" class="form-control" id="email" value = {{contact.email}}>
+                        </div>
+                        <span id="email_error" style="color: red;"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="company" class="col-sm-2 control-label">Company</label>
+                        <div class="col-sm-3">
+                            {{getContactId contact._id}}
+                            <select id="company">
+                                {{#each companies}}
+                                    {{#if contactIsInCompany _id}}
+                                        <option value="{{_id}}" selected>{{name}}</option>
+                                        {{else}}
+                                        <option value="{{_id}}">{{name}}</option>
+                                    {{/if}}
+                                {{/each}}
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone" class="col-sm-2 control-label">Phone</label>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" id="phone" value = {{contact.phone}}>
+                        </div>
+                        <span id="phone_error" style="color: red;"></span>
+                    </div>
+                    <div class="col-md-4"></div>
+                    <div class="col-md-4"><button type="button" class="btn btn-success edit_contact">Edit Contact</button></div>
+                </form>
+            </div>
+        </div>
+    </div>
+</template>
+
+
+<template name="viewContacts">
+    <div id="page-wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">List of Contacts</h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                            <tr>
+                                <th>First name</th>
+                                <th>Last name</th>
+                                <th>Email</th>
+                                <th>Company</th>
+                                <th>Phone</th>
+                                <th>Edit</th>
+                                <th>Delete</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {{#each contacts}}
+                                <tr>
+                                    <th>{{firstName}}</th>
+                                    <th>{{lastName}}</th>
+                                    <th>{{email}}</th>
+                                    <th>{{company _id}}</th>
+                                    <th>{{phone}}</th>
+                                    <th><a href="{{pathFor '/contact/:id' id=_id}}">Edit</a> </th>
+                                    <th><button type="button" class="btn btn-danger delete">Delete</button></th>
+                                </tr>
+                            {{/each}}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
